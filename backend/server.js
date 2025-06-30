@@ -20,6 +20,7 @@ const port=process.env.PORT || 3000;
 app.use('/api/v1/user',userRoutes);
 
 
+
 app.listen(port,()=>{
     connectDB(); // Connect to MongoDB
     console.log(`App is listening to the port ${port}`)

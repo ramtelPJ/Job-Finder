@@ -76,22 +76,23 @@ export const loginUser = async (req, res) => {
         success: false,
       });
     }
-    return res.status(200).json({
-        message: "Login successful",
-        success: true,
-        user:{
-            fullName:user.fullName,
-            email:user.email,
-            phoneNumber:user.phoneNumber,
-            role:user.role,
-            profile:user.profile,   
+    // return res.status(200).json({
+    //     message: "Login successful",
+    //     success: true,
+    //     user:{
+    //         fullName:user.fullName,
+    //         email:user.email,
+    //         phoneNumber:user.phoneNumber,
+    //         role:user.role,
+    //         profile:user.profile,   
             
-        }
-    })
+    //     }
+    // })
+    
     const tokenData = {
       userID: user._id,
     };
-    const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {
+    const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
     user = {
@@ -107,13 +108,15 @@ export const loginUser = async (req, res) => {
       .status(200)
       .cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
-        httpsOnly: true,
-        sameSite: "strict:",
+        httpOnly: true,
+        sameSite: "strict",
+        secure:false   // only true if there is https
       })
       .json({
         message: "Login Sucessful",
         success: true,
       });
+
   } catch (error) {
     console.log(error);
   }
