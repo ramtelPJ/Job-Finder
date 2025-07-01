@@ -7,17 +7,22 @@ title:{
     trim:true   
 },
 description:{
-    type:String
+    type:String,
+    required:true
 },
 requirements:[{type:String, trim:true}],
 salary:{
     type:Number,
-    required:true   
+      
 },
 location:{
     type:String,
     required:true,
     trim:true
+},
+experienceLevel:{
+    type:String,
+
 },
 jobType:{
     type:String,
@@ -32,12 +37,12 @@ position:{
 company:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"Company",
-    required:true
+    
 },
 createdBy:{
     type:mongoose.Schema.Types.ObjectId,
-    ref:"User",
-    required:true
+    ref:"User"
+   // required:true
 },
 },{timestamps:true})
 
