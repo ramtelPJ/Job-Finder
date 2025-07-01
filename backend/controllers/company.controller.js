@@ -6,7 +6,7 @@ export const registerCompany=async(req,res)=>{
         const {companyName}=req.body;
         if(!companyName){
             return res.status(400).json({
-                message:"Comapny name is not found",
+                message:"Company name is not found",
                 success:false
             })
         }
@@ -47,9 +47,9 @@ export const getCompany=async(req,res)=>{
             });
         }
         return res.status(200).json({
-            message:"Company founded successfully",
-            success:true,
+            //message:"Company founded successfully",
             company,
+            success:true
         })
     } catch (error) {
         console.log(error);
