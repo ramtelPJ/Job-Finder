@@ -35,11 +35,7 @@ export const registerUser = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.error("Error in resisterUser:", error);
-    return res.status(500).json({
-      message: "Internal server error",
-      success: false,
-    });
+    console.log(error);
   }
 };
 
@@ -85,7 +81,6 @@ export const loginUser = async (req, res) => {
     //         phoneNumber:user.phoneNumber,
     //         role:user.role,
     //         profile:user.profile,   
-            
     //     }
     // })
     
@@ -95,7 +90,7 @@ export const loginUser = async (req, res) => {
     const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
-    user = {
+    const safeUser = {
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
@@ -115,6 +110,7 @@ export const loginUser = async (req, res) => {
       .json({
         message: "Login Sucessful",
         success: true,
+        user:safeUser,
       });
 
   } catch (error) {

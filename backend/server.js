@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './utils/db.js';
 import userRoutes from './routers/user.router.js'; // Import user routes
-
+import companyRoutes from './routers/company.route.js'; // Import company routes
 dotenv.config({}); // Load environment variables from .env file
 
 const app=express();
@@ -18,7 +18,7 @@ app.use(cors({
 const port=process.env.PORT || 3000;
 
 app.use('/api/v1/user',userRoutes);
-
+app.use('/api/v1/company',companyRoutes); // Use company routes
 
 
 app.listen(port,()=>{
