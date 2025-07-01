@@ -22,7 +22,7 @@ export const registerCompany=async(req,res)=>{
         }
         company=await Company.create({
             name:companyName,
-            userID:req.id,
+            userID:req.id
         })
         return res.status(201).json({
             message:"Company created successfully",
@@ -31,7 +31,11 @@ export const registerCompany=async(req,res)=>{
         });
 
     } catch (error) {
-        console.log(error)  
+        console.error("Error in registerCompany:", error);
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false,
+        });
     }
 }
 
@@ -77,7 +81,7 @@ export const getCompanyById=async(req,res)=>{
         console.log(error);
     }
 }
-// Updating the company by id:
+//Updating the company by id:
 export const updateCompany=async(req,res)=>{
     try {
         const {companyName, location, jobTypes, website, logo, description} = req.body;

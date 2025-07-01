@@ -8,13 +8,13 @@ const companySchema=new mongoose.Schema({
     },
     location:{
         type:String,
-        required:true,
+        
         trim:true
     },
     jobTypes:{
         type:String,
-        enum:['full-time, part-time, contract, internship'],
-        required:true
+        enum:['full-time, part-time, contract, internship']
+        
     },
     website:{
         type:String,
@@ -28,7 +28,7 @@ const companySchema=new mongoose.Schema({
     userID:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
-        required:true
+        
     }
 }, {timestamps:true});
 
