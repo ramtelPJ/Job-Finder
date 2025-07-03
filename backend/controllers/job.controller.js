@@ -40,19 +40,20 @@ export const getJob=async(req,res)=>{
         const keyword=req.query.keyword||"";
         const query={
             $or:[
-               {jobTitle:{regex:keyword,$options:"i"}} ,
-               {jobDescription:{regex:keyword,$options:"i"}}
+               {title:{$regex:keyword,$options:"i"}} ,
+               {description:{$regex:keyword,$options:"i"}}
             ]
         }
-        const job=await Job.find(query);
+        const job=await Job.find(query).populate({
+            path:"company",
+        })
         if(!job){
             return res.status(404).json({
                 message:"Couldn't find the job",
                 success:false
             })
         }
-        return res.status(200).json({
-            
+        return res.status(200).json({ 
             job,
             success:true,
         })

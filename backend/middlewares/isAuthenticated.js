@@ -9,7 +9,7 @@ const isAuthenticated=async(req,res,next)=>{
                 success:false
             })
         }
-        const decoded=await jwt.verfiy(token,process.env.SECRET_KEY);
+        const decoded=await jwt.verify(token,process.env.SECRET_KEY);
         if(!decoded){
             return res.status(401).json({
                 message:"Invalid token",
@@ -20,7 +20,10 @@ const isAuthenticated=async(req,res,next)=>{
         req.id=decoded.userID;
         next();
     } catch (error) {
-        
+        return res.status(500).json({
+            message:"Internal server error",
+            success:false   
+        })
     }
 }
 
