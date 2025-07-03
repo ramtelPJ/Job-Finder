@@ -5,7 +5,9 @@ import dotenv from 'dotenv';
 import connectDB from './utils/db.js';
 import userRoutes from './routers/user.router.js'; // Import user routes
 import companyRoutes from './routers/company.route.js'; // Import company routes
-import jobRoutes from './routers/job.route.js'
+import jobRoutes from './routers/job.route.js';
+import applicationRoutes from './routers/application.route.js'; // Import application routes
+
 dotenv.config({}); // Load environment variables from .env file
 
 const app=express();
@@ -21,7 +23,7 @@ const port=process.env.PORT || 3000;
 app.use('/api/v1/user',userRoutes);
 app.use('/api/v1/company',companyRoutes); // Use company routes
 app.use('/api/v1/job',jobRoutes);
-
+app.use('/api/v1/application',applicationRoutes)
 app.listen(port,()=>{
     connectDB(); // Connect to MongoDB
     console.log(`App is listening to the port ${port}`)
