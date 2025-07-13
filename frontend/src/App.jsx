@@ -1,36 +1,41 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Navbar from './components/shared/navbar'
-import './App.css'
-import { createBrowserRouter, Router, RouterProvider } from 'react-router-dom'
-import Signup from './components/auth/signup'
-import Login from './components/auth/login'
-import Home from './components/Home'
+import Navbar from './components/shared/navbar';
+import Signup from './components/auth/signup';
+import Login from './components/auth/login';
+import Home from './components/Home';
 
+import './App.css';
 
-const appRouter=createBrowserRouter([
+const appRouter = createBrowserRouter([
   {
     path: '/login',
-    element: <Login/>
+    element: <Login />,
+  },
+  {
+    path:'/',
+    element:<Home/>
   },
   {
     path: '/signup',
-    element: <Signup/>
+    element: <Signup />,
   },
   {
-    path: '/Home',
-    element: <Home/>
-  }
-])
-function App() {
-  
+    path: '/home',
+    element: <Home />,
+  },
+]);
 
+function App() {
   return (
     <>
-     
+      <div>
       <RouterProvider router={appRouter} />
+      </div>
+      
     </>
-  )
+  );
 }
 
-export default App
+export default App;

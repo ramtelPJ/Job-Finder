@@ -3,12 +3,12 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "@radix-ui/react-popover";
+} from "@/components/ui/popover"; // Adjust the import path as necessary
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { Link } from "react-router-dom";
 import {User2,LogOut} from "lucide-react"; // Assuming you have lucide-react installed for icons
 // Assuming Button is a custom or shared UI component
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 
 const Navbar = () => {
     const user=false;
@@ -41,8 +41,10 @@ const Navbar = () => {
 {
     !user ?(
         <div className="text-white flex items-center space-x-4 gap-2">
-            <Button variant="outline">Login</Button> 
-            <Button variant="outline">Signup</Button> 
+            <Link to='/login'><Button variant="outline">Login</Button> </Link>
+            
+        <Link to='/signup'><Button variant="outline">Signup</Button></Link>
+             
         </div>
     ):(
 <Popover>

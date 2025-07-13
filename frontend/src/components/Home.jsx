@@ -4,7 +4,7 @@ import Navbar from './shared/navbar'
 function Home() {
   return (
     <div>
-<Navbar/>
+<Navbar />
 
     </div>
   )
