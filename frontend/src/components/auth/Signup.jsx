@@ -10,6 +10,9 @@ import { END_USER_ENDPOINT } from "@/utils/constant";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../redux/authSlice";
+import { Loader2 } from "lucide-react";
 function Signup() {
 
 
@@ -21,8 +24,9 @@ function Signup() {
     role: '',
     profile: null
   });
+  const {Loading}=useSelector(store=>store.auth);
 const navigate=useNavigate();
-
+const dispatch=useDispatch();
   const handleInputChange = (e) => {
     setInput({
       ...input,
@@ -46,6 +50,7 @@ const navigate=useNavigate();
     //   formData.append("file", input.file);
     // }
     try {
+      dispatch(setLoading(true))
       const res=await axios.post(`${END_USER_ENDPOINT}/register`,formData,{
         headers:{
           "Content-Type": "multipart/form-data"},
@@ -57,6 +62,9 @@ if(res.data.success){
 }
     } catch (error) {
       console.error("Error during signup:", error);
+    }
+    finally{
+      dispatch(setLoading(false));
     }
   };
 
@@ -80,7 +88,7 @@ if(res.data.success){
               onChange={handleInputChange}
               placeholder="Enter your fullname"
               className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
+            /> 
           </div>
           <div className="mb-4">
             <Label className="block text-gray-600 mb-2">Email</Label>
@@ -157,6 +165,19 @@ if(res.data.success){
               className="cursor-pointer border rounded-md p-2"
             />
           </div>
+{Loading ? (
+  <Button className='w-full py-2'>
+    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+    Please Wait
+  </Button>
+) : (
+  <Button
+    type="submit"
+    className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
+  >
+    Signup
+  </Button>
+)}
           <Button
             type="submit"
             className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
