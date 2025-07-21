@@ -5,7 +5,10 @@ import Navbar from './components/shared/navbar';
 import Signup from './components/auth/signup';
 import Login from './components/auth/login';
 import Home from './components/Home';
-
+import Jobs from './components/Jobs';
+import LatestJob from './components/LatestJob';
+import Footer from './components/Footer';
+import './index.css';
 import './App.css';
 
 const appRouter = createBrowserRouter([
@@ -25,6 +28,10 @@ const appRouter = createBrowserRouter([
     path: '/home',
     element: <Home />,
   },
+  {
+    path:'/jobs',
+    element:<Jobs/>
+  }
 ]);
 
 function App() {
