@@ -1,4 +1,6 @@
-import React from "react";
+import React, { use } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Popover,
   PopoverTrigger,
@@ -9,9 +11,10 @@ import { Link } from "react-router-dom";
 import {User2,LogOut} from "lucide-react"; // Assuming you have lucide-react installed for icons
 // Assuming Button is a custom or shared UI component
 import {Button} from "@/components/ui/button";
-
+import Profile from "../Profile.jsx";
 const Navbar = () => {
-    const user=false;
+    
+  const {user} = useSelector(store => store.auth);
   return (
     <nav className="bg-[#840029] p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -28,15 +31,11 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <a href="/about" className="text-white hover:text-[#fdb913]">
-              About Us
+            <a href="/browse" className="text-white hover:text-[#fdb913]">
+              Browse
             </a>
           </li>
-          <li>
-            <a href="/contact" className="text-white hover:text-[#fdb913]">
-              Contact
-            </a>
-          </li>
+          
         </ul>
         {
           !user ? (
@@ -65,13 +64,13 @@ const Navbar = () => {
                     />
                   </Avatar>
                   <div>
-                    <h4 className="font-serif font-medium">Prajwol Ramtel</h4>
+                    <h4 className="font-serif font-medium">{user.fullname}</h4>
                   </div>
                 </div>
                 <div className="px-4 pb-4 flex flex-col text-gray-800">
                   <div className="flex items-center gap-2 mb-2">
                     <User2 />
-                    <Button variant="link" className="text-[#840029] hover:text-[#fdb913]">View Profile</Button>
+                    <Button variant="link" className="text-[#840029] hover:text-[#fdb913]"><Link to='profile'>View Profile</Link></Button>
                   </div>
                   <div className="flex items-center gap-2 mb-2">
                     <LogOut />
