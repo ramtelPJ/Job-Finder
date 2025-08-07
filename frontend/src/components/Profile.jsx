@@ -7,9 +7,12 @@ import { Badge } from "./ui/badge.jsx";
 import { Label } from "./ui/label.jsx";
 import AppliedJobTable from "./AppliedJobTable.jsx";
 const skills = ["JavaScript", "React", "Node.js", "CSS"];
+import { useState } from "react";
+import UpdateProfileDialog from "./UpdateProfileDialog.jsx";
+
 function Profile() {
+  const[open,setOpen]=useState(false);
   const isResumeAvailable = true; // This can be a prop or state based on your application logic
-  // ULM official colors: Maroon (#800000), Gold (#FFCC00), White (#FFFFFF), Black (#000000)
   return (
     <div className="bg-[#fff] min-h-screen">
       <Navbar />
@@ -28,7 +31,7 @@ function Profile() {
               <p className="text-[#333]">write your bio here....</p>
             </div>
           </div>
-          <Button className="text-right border-[#800000] text-[#800000] hover:bg-[#800000] hover:text-[#fff]" variant="outline">
+          <Button onClick={()=>setOpen(true)} className="text-right border-[#800000] text-[#800000] hover:bg-[#800000] hover:text-[#fff]" variant="outline">
             <Pen />
           </Button>
         </div>
@@ -71,6 +74,7 @@ function Profile() {
         <h1 className="text-xl font-bold text-[#800000] mb-2">Applied Jobs</h1>
         <AppliedJobTable />
       </div>
+      <UpdateProfileDialog open={open} setOpen={setOpen}/>
     </div>
   );
 }
