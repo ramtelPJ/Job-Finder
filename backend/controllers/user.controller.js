@@ -1,7 +1,8 @@
 import {User} from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";  
 //Logic for the user registration:
 
 export const registerUser = async (req, res) => {
@@ -13,7 +14,9 @@ export const registerUser = async (req, res) => {
         success: false,
       });
     }
-
+const file=req.file;
+const fileUri=getDataUri(file);
+const cloudResponse=await cloudinary.uploader.upload(fileUri.content);
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({
@@ -134,14 +137,15 @@ export const logoutUser = async (req, res) => {
 // logic for updating the user profile:
 export const updateUserProfile = async (req, res) => {
   try {
-    const { bio, skills, resume, profilePicture, company } = req.body;
+    const { fullName,email,phoneNumber,bio, skills} = req.body;
+    //console.log(fullName,email,phoneNumber,bio, skills);
+    //const { bio, skills, resume, profilePicture, company } = req.body;
+
     const file = req.file; // Assuming you are using multer for file uploads
-    if (!bio || !skills || !resume || !profilePicture || !company) {
-      return res.status(400).json({
-        message: "All fields are required",
-        success: false,
-      });
-    }
+    const fileUri=getDataUri(file);
+    const cloudResponse=await cloudinary.uploader.upload(fileUri.content);
+
+
     const skillsArray = skills.split(",");
     const userId = req.id; // middleware will add the user id to the request object
     let user = await User.findById(userId);
@@ -151,16 +155,22 @@ export const updateUserProfile = async (req, res) => {
         success: false,
       });
     }
-    (user.fullName = fulllName),
-      (user.email = email),
-      (user.phoneNumber = phoneNumber),
-      (user.profile.bio = bio),
-      (user.profile.skills = skillsArray),
-      (user.profile.resume = resume),
-      (user.profile.profilePicture = profilePicture),
-      (user.profile.company = company),
+    if(fullName)user.fullName = fullName
+    if(email)user.email = email
+     if(phoneNumber) user.phoneNumber = phoneNumber
+      if(bio) user.profile.bio = bio
+      if(skills) user.profile.skills = skillsArray
+      //(user.profile.resume = resume),
+      //(user.profile.profilePicture = profilePicture),
+      //(user.profile.company = company),
       //Resume comes over here
 
+if(cloudResponse){
+        user.profile.resume = cloudResponse.secure_url;
+        user.profile.resumeOriginalName = file.originalname;
+      }
+
+    
       await user.save();
       user = {
         _id: user._id,
