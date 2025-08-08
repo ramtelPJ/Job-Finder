@@ -6,13 +6,16 @@ import { Button } from "./ui/button.jsx";
 import { Badge } from "./ui/badge.jsx";
 import { Label } from "./ui/label.jsx";
 import AppliedJobTable from "./AppliedJobTable.jsx";
-const skills = ["JavaScript", "React", "Node.js", "CSS"];
 import { useState } from "react";
 import UpdateProfileDialog from "./UpdateProfileDialog.jsx";
+import { useSelector } from "react-redux";
+
+//const skills = ["JavaScript", "React", "Node.js", "CSS"];
+const isResumeAvailable = true; // This can be a prop or state based on your application logic
 
 function Profile() {
   const[open,setOpen]=useState(false);
-  const isResumeAvailable = true; // This can be a prop or state based on your application logic
+  const {user}=useSelector((state)=>state.auth);
   return (
     <div className="bg-[#fff] min-h-screen">
       <Navbar />
@@ -27,8 +30,8 @@ function Profile() {
               />
             </Avatar>
             <div>
-              <h1 className="font-bold text-2xl text-[#800000]">Full Name</h1>
-              <p className="text-[#333]">write your bio here....</p>
+              <h1 className="font-bold text-2xl text-[#800000]">{user?.fullName}</h1>
+              <p className="text-[#333]">{user?.bio}</p>
             </div>
           </div>
           <Button onClick={()=>setOpen(true)} className="text-right border-[#800000] text-[#800000] hover:bg-[#800000] hover:text-[#fff]" variant="outline">
@@ -38,17 +41,17 @@ function Profile() {
         <div>
           <div className="flex items-center gap-2 mb-4 text-[#800000]">
             <Mail />
-            <span className="text-black">pj@gmail.com</span>
+            <span className="text-black">{user?.email}</span>
           </div>
           <div className="flex items-center gap-2 mb-4 text-[#800000]">
             <Contact />
-            <span className="text-black">+1234567890</span>
+            <span className="text-black">{user?.phoneNumber}</span>
           </div>
         </div>
         <div className="my-5">
           <h1 className="text-lg font-semibold text-[#800000]">Skills</h1>
           <div className="flex items-center gap-1">
-            {skills.map((item, i) => (
+            {user?.profile?.skills.map((item, i) => (
               <Badge key={i} className="bg-[#FFCC00] text-[#800000] border border-[#800000]">
                 {item}
               </Badge>
@@ -59,10 +62,10 @@ function Profile() {
             {isResumeAvailable ? (
               <a
                 target="blank"
-                href="https://example.com/resume.pdf"
+                href={user?.profile?.resume}
                 className="text-[#800000] hover:underline hover:text-[#FFCC00]"
               >
-                Download Resume
+                {user?.profile?.resumeOriginalName || "Download Resume"}
               </a>
             ) : (
               <span className="text-red-500">Resume not available</span>

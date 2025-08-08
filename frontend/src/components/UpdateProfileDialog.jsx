@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { END_USER_ENDPOINT } from "../utils/constant.js";
 import axios from "axios";
 import { toast } from "sonner"; 
-import { setUser } from "../redux/authSlice.js";
+import { setUser } from "@/redux/authSlice.js";
 import { useDispatch } from "react-redux";
 function UpdateProfileDialog({ open, setOpen }) {
     const [loading, setLoading] =useState(false);
@@ -24,9 +24,9 @@ function UpdateProfileDialog({ open, setOpen }) {
         fullName:user?.fullName || "",
         email:user?.email || "", 
         phoneNumber:user?.phoneNumber || "",
-        bio:user?.profile?.bio || "",
+        //bio:user?.profile?.bio || "",
         skills:user?.profile?.skills?.map(skill=>skill) || "",
-        resume:user?.resume || "",
+        
         file:user?.profile?.resume || ""
     })
     const dispatch=useDispatch();
@@ -34,7 +34,7 @@ const handleInputChange = (e) =>{
     setInput({...input,[e.target.name]:e.target.value});
 }
 const fileHandlerChange=(e)=>{
-    const file=e.target.files[0];
+    const file=e.target.files?.[0];
     setInput({...input,file});
 
 }
@@ -121,7 +121,8 @@ console.log(input)
               </div>
             </div>
             <DialogFooter>
-            {loading ? (
+            {
+            loading ? (
   <Button className='w-full py-2'>
     <Loader2 className='mr-2 h-4 w-4 animate-spin' />Please Wait
   </Button>

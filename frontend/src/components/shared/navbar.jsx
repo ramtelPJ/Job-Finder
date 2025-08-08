@@ -1,20 +1,40 @@
 import React, { use } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
 } from "@/components/ui/popover"; // Adjust the import path as necessary
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
-import { Link } from "react-router-dom";
 import {User2,LogOut} from "lucide-react"; // Assuming you have lucide-react installed for icons
 // Assuming Button is a custom or shared UI component
 import {Button} from "@/components/ui/button";
-import Profile from "../Profile.jsx";
+import { useDispatch,useSelector } from "react-redux";
+import { toast } from "sonner";
+import { END_USER_ENDPOINT } from "../../utils/constant.js";
+import axios from "axios"; 
+import { setUser } from "@/redux/authSlice.js";
+import { Link,useNavigate } from "react-router-dom";
+
+
 const Navbar = () => {
     
   const {user} = useSelector(store => store.auth);
+const dispatch = useDispatch();
+const navigate=useNavigate();
+  const logOutHandler = async() => {
+    try {
+      const res=await axios.get(`${END_USER_ENDPOINT}/logout`,{withCredentials:true});
+      if(res.data.success){
+        dispatch(setUser(null));
+        navigate("/")
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.message);
+    }
+  }
   return (
     <nav className="bg-[#840029] p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -74,7 +94,7 @@ const Navbar = () => {
                   </div>
                   <div className="flex items-center gap-2 mb-2">
                     <LogOut />
-                    <Button variant="link" className="text-[#840029] hover:text-[#fdb913]">Log Out</Button>
+                    <Button onClick={logOutHandler} variant="link" className="text-[#840029] hover:text-[#fdb913]">Log Out</Button>
                   </div>
                 </div>
               </PopoverContent>
@@ -85,5 +105,5 @@ const Navbar = () => {
     </nav>
   );
 };
-
+//dsdss
 export default Navbar;
