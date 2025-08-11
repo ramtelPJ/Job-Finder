@@ -44,7 +44,7 @@ const dispatch=useDispatch();
     formData.append("phoneNumber", input.phoneNumber);
     formData.append("password", input.password);
     formData.append("role", input.role);
-    formData.append("profileImage", input.profile);
+    formData.append("profilePicture", input.profile);
     console.log(input)
     // if(input.file){
     //   formData.append("file", input.file);
@@ -178,12 +178,7 @@ if(res.data.success){
     Signup
   </Button>
 )}
-          <Button
-            type="submit"
-            className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
-          >
-            Signup
-          </Button>
+          
           <span>
             Already have an account?
             <Link to="/login" className="text-blue-500">
