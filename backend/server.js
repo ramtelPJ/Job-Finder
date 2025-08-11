@@ -24,6 +24,7 @@ app.use('/api/v1/user',userRoutes);
 app.use('/api/v1/company',companyRoutes); // Use company routes
 app.use('/api/v1/job',jobRoutes);
 app.use('/api/v1/application',applicationRoutes)
+//app.use('api/v1/logout',userRoutes); // Use user routes for logout
 app.listen(port,()=>{
     connectDB(); // Connect to MongoDB
     console.log(`App is listening to the port ${port}`)
