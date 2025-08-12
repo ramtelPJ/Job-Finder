@@ -6,11 +6,17 @@ import { Badge } from "./ui/badge.jsx";
 import { useNavigate } from "react-router-dom";
 function SingleJob({job}) {
   const navigate = useNavigate();
-  //let jobId='123456789'
+  const daysAgo=(mongodbtime)=>{
+    const createdAt=new Date(mongodbtime);
+    const currentDate=new Date();
+    const timeDiff=currentDate.getTime()-createdAt.getTime();
+    const daysDiff=Math.floor(timeDiff/(1000*3600*24));
+    return daysDiff;
+  }
   return (
     <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100">
       <div className="flex items-center justify-between">
-        <p>1 Days ago</p>
+        <p>{daysAgo(job?.createdAt)===0 ? "Today":`${daysAgo(job?.createdAt)} days ago`}</p>
         <Button variant="outline" className="rounded-full" size="icon">
           <Bookmark />
         </Button>
