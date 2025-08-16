@@ -13,7 +13,9 @@ import './index.css';
 import './App.css';
 import Profile from './components/Profile.jsx';
 import JobDescription from './components/JobDescription.jsx';
-
+import Companies from './components/admin/Companies.jsx';
+import CompanyCreate from './components/admin/CompanyCreate.jsx';
+import CompanySetup from './components/admin/CompanySetup.jsx';
 const appRouter = createBrowserRouter([
   {
     path: '/login',
@@ -48,7 +50,22 @@ element:<JobDescription/>
   
   path:'profile',
   element:<Profile/>
-  }
+  },
+// Admin logic  start from here:
+{
+  path:'admin/companies',
+  element:<Companies/>
+},
+{
+  path:'admin/companies/create',
+  element:<CompanyCreate/>
+},
+{
+  path:'/admin/companies/:id',
+  element:<CompanySetup/>
+}
+
+
 ]);
 
 function App() {

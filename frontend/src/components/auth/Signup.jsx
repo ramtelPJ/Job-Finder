@@ -129,8 +129,8 @@ if(res.data.success){
                 <input
                   type="radio"
                   name="role"
-                  value="admin"
-                  checked={input.role === "admin"}
+                  value="recruiter"
+                  checked={input.role === "recruiter"}
                   onChange={handleInputChange}
                   className="cursor-pointer"
                   
