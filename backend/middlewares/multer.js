@@ -62,7 +62,7 @@ const upload = multer({
 });
 
 // Export different configurations for different use cases
-export const singleUpload = upload.single("file"); // Generic file upload
+export const singleUpload = multer({storage}).single('file') // Generic file upload
 export const profilePictureUpload = upload.single("profilePicture"); // For registration
 export const resumeUpload = upload.single("resume"); // For profile updates
 
