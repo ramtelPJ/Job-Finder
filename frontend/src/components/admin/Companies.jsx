@@ -4,10 +4,14 @@ import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import CompaniesTable from './CompaniesTable'
 import { useNavigate } from 'react-router-dom'
+import useGetAllCompanies from '../../hooks/useGetAllCompanies'
+import { useDispatch } from 'react-redux'
 function Companies() {
+    useGetAllCompanies();
     const navigate=useNavigate();
+    const dispatch=useDispatch();
 return (
-    
+   
     <div>
         <Navbar />
         <div className='max-w-7xl mx-auto my-10'>

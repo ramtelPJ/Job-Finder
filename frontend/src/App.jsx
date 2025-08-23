@@ -6,8 +6,6 @@ import Signup from './components/auth/signup';
 import Login from './components/auth/Login.jsx';
 import Home from './components/Home';
 import Jobs from './components/Jobs';
-import LatestJob from './components/LatestJob';
-import Footer from './components/Footer';
 import Browse from './components/Browse';
 import './index.css';
 import './App.css';
